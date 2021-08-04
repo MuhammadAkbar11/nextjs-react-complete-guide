@@ -12,7 +12,17 @@ function ClientsPage() {
           const key = i;
           return (
             <li key={key}>
-              <Link href={`/clients/${client}`}>{client}</Link>
+              <Link
+                href={{
+                  pathname: "/clients/[id]",
+                  query: {
+                    id: client,
+                    name: client,
+                  },
+                }}
+              >
+                {client}
+              </Link>
             </li>
           );
         })}

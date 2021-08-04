@@ -5,6 +5,7 @@ function ClientProjectsPage() {
   const router = useRouter();
 
   const { query } = router;
+  console.log(query);
   return (
     <div>
       <Link href="/clients">Back to list of clients</Link>
