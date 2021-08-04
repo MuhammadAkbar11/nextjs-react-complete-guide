@@ -1,9 +1,10 @@
 import React from "react";
-// import PropTypes from 'prop-types'
-function AboutPage(props) {
-  console.log(props);
+import Link from "next/link";
+
+function AboutPage() {
   return (
     <div>
+      <Link href="/">Back to home</Link>
       <h1>About Page</h1>
     </div>
   );
