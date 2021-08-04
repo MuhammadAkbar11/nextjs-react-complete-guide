@@ -1,5 +1,9 @@
-const PortfolioProjectPage = props => {
-  console.log(props);
+import { useRouter } from "next/router";
+
+const PortfolioProjectPage = () => {
+  const router = useRouter();
+
+  console.log(router);
   return (
     <div>
       <h1>Portfolio project</h1>
