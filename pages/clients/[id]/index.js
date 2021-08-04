@@ -5,7 +5,12 @@ function ClientProjectsPage() {
   const router = useRouter();
 
   const { query } = router;
-  console.log(query);
+
+  const loadProjectHandler = () => {
+    // load data...
+    router.push(`/clients/${query.id}/projectA`);
+  };
+
   return (
     <div>
       <Link href="/clients">Back to list of clients</Link>
@@ -17,6 +22,9 @@ function ClientProjectsPage() {
       >
         By : {query.id}
       </h4>
+
+      <br />
+      <button onClick={loadProjectHandler}>Load Project {query.id}</button>
     </div>
   );
 }
