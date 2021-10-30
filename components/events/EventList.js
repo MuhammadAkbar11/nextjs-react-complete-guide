@@ -1,15 +1,19 @@
-import { ListGroup } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import EventItem from "./EventItem";
 
 function EventList(props) {
   const { items } = props;
   return (
     <>
-      <ListGroup>
+      <Row className="px-5 py-5 ">
         {items.map(event => {
-          return <EventItem key={event?.id} {...event} />;
+          return (
+            <Col sm={8} className="mb-3 mx-auto" key={event?.id}>
+              <EventItem {...event} />
+            </Col>
+          );
         })}
-      </ListGroup>
+      </Row>
     </>
   );
 }
