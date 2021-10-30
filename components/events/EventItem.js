@@ -1,4 +1,4 @@
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Row, Col, Image } from "react-bootstrap";
 import Link from "next/link";
 
 function EventItem(props) {
@@ -15,30 +15,36 @@ function EventItem(props) {
 
   return (
     <>
-      <Card>
-        <Card.Img
-          variant="top"
-          height={300}
-          // flui
-          className="img-cover"
-          src={"/" + image}
-          alt={title}
-        />
-        <Card.Body>
-          <Card.Title>{title}</Card.Title>
-          <Card.Text>
-            <time>{humanReadableDate}</time>
-          </Card.Text>
-          <Card.Text>
-            <address>{formatedAddress}</address>
-          </Card.Text>
-          <Card.Text>
-            <small className="text-muted"></small>
-          </Card.Text>
-          <Link href={exploreLink}>
-            <Button variant="danger">Details</Button>
-          </Link>
-        </Card.Body>
+      <Card className="border-0 shadow-sm">
+        <Row>
+          <Col md={4}>
+            <Image
+              className="h-100 img-cover"
+              fluid
+              src={"/" + image}
+              alt={title}
+            />
+          </Col>
+          <Col md={8}>
+            <Card.Body className="h-100 d-flex flex-column">
+              <Card.Title>{title}</Card.Title>
+              <Card.Text>
+                <time>{humanReadableDate}</time>
+              </Card.Text>
+              <Card.Text>
+                <address>{formatedAddress}</address>
+              </Card.Text>
+              <Card.Text className="mb-auto">
+                <small className="text-muted"></small>
+              </Card.Text>
+              <div className="mt-auto d-flex justify-content-end ">
+                <Link href={exploreLink}>
+                  <a>Explore Event</a>
+                </Link>
+              </div>
+            </Card.Body>
+          </Col>
+        </Row>
       </Card>
     </>
   );
