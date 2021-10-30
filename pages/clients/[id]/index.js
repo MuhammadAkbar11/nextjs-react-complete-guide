@@ -24,7 +24,9 @@ function ClientProjectsPage() {
       </h4>
 
       <br />
-      <button onClick={loadProjectHandler}>Load Project {query.id}</button>
+      <button className="btn btn-primary" onClick={loadProjectHandler}>
+        Load Project {query.id}
+      </button>
     </div>
   );
 }
