@@ -8,8 +8,7 @@ function EventNotFound({ eventId }) {
         <div className="mb-3">
           <EmojiSadIcon size={90} />
         </div>
-        <h1>Sorry! There are no event for “{eventId}”.</h1>
-        <p></p>
+        <h1>Sorry! There are no event for {eventId ? `"${eventId}"` : ""}.</h1>
       </Container>
     </section>
   );
