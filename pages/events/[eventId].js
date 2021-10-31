@@ -1,5 +1,5 @@
-import { useRouter } from "next/router";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { Container } from "react-bootstrap";
 import EventContent from "../../components/eventDetail/EventContent";
 import EventLogistics from "../../components/eventDetail/EventLogistic";
@@ -15,7 +15,7 @@ function EventDetailPage() {
   const event = getEventById(eventId);
 
   return (
-    <Container className="event-container ">
+    <Container className="event-container pt-3">
       {!event ? (
         <>
           <Head>

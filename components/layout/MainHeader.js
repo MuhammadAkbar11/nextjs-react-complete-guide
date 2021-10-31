@@ -3,8 +3,8 @@ import Link from "next/link";
 
 function MainHeader() {
   return (
-    <Container className="event-container">
-      <header className="header py-4">
+    <Container className="event-container border-bottom mb-3">
+      <header className="header pt-4 pb-3">
         <Row className="flex-nowrap justify-content-between align-items-center">
           <Col xs={3}>
             <Link href="/">

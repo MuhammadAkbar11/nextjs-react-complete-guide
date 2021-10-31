@@ -6,7 +6,7 @@ import { getFeaturedEvents } from "../data/dummy-data";
 function HomePage() {
   const featuredEvents = getFeaturedEvents();
   return (
-    <Container className="event-container">
+    <Container className="event-container pt-3">
       <Head>
         <title>Home</title>
       </Head>
