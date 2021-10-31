@@ -1,5 +1,6 @@
-import { Card, Button, Row, Col, Image } from "react-bootstrap";
+import { Card, Row, Col, Image } from "react-bootstrap";
 import Link from "next/link";
+import { ArrowRightIcon, CalendarIcon, LocationMarkerIcon } from "../icons";
 
 function EventItem(props) {
   const { title, image, date, location, id } = props;
@@ -15,7 +16,7 @@ function EventItem(props) {
 
   return (
     <>
-      <Card className="border-0 shadow-sm">
+      <Card className="border-0 shadow-sm rounded overflow-hidden">
         <Row>
           <Col md={4}>
             <Image
@@ -28,18 +29,29 @@ function EventItem(props) {
           <Col md={8}>
             <Card.Body className="h-100 d-flex flex-column">
               <Card.Title>{title}</Card.Title>
-              <Card.Text>
+              <Card.Text className="text-dark ">
+                <span className="me-2 ">
+                  <CalendarIcon size={20} />
+                </span>
                 <time>{humanReadableDate}</time>
               </Card.Text>
-              <Card.Text>
-                <address>{formatedAddress}</address>
+              <Card.Text className=" fst-italic  ">
+                <span className="me-2">
+                  <LocationMarkerIcon size={20} />
+                </span>
+                <span>{formatedAddress}</span>
               </Card.Text>
               <Card.Text className="mb-auto">
                 <small className="text-muted"></small>
               </Card.Text>
               <div className="mt-auto d-flex justify-content-end ">
                 <Link href={exploreLink}>
-                  <a>Explore Event</a>
+                  <a className="btn btn-primary text-capitalize ">
+                    <span> Explore Event</span>
+                    <span className="ms-2">
+                      <ArrowRightIcon size={20} />
+                    </span>
+                  </a>
                 </Link>
               </div>
             </Card.Body>
