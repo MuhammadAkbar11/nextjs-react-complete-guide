@@ -5,7 +5,7 @@ import { getFeaturedEvents } from "../data/dummy-data";
 function HomePage() {
   const featuredEvents = getFeaturedEvents();
   return (
-    <Container className="bg-light">
+    <Container>
       <h1>Home Page</h1>
       <EventList items={featuredEvents} />
     </Container>

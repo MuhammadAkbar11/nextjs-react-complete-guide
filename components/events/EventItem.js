@@ -16,20 +16,20 @@ function EventItem(props) {
 
   return (
     <>
-      <Card className="border-0 shadow-sm rounded overflow-hidden">
+      <Card className="border-0 shadow-sm rounded overflow-hidden ">
         <Row>
-          <Col md={4}>
-            <Image
-              className="h-100 img-cover"
-              fluid
-              src={"/" + image}
-              alt={title}
-            />
+          <Col
+            md={4}
+            style={{
+              height: 230,
+            }}
+          >
+            <Image className="h-100 img-cover" src={"/" + image} alt={title} />
           </Col>
           <Col md={8}>
             <Card.Body className="h-100 d-flex flex-column">
-              <Card.Title>{title}</Card.Title>
-              <Card.Text className="text-dark ">
+              <Card.Title className="mb-3">{title}</Card.Title>
+              <Card.Text className="text-dark mb-1 ">
                 <span className="me-2 ">
                   <CalendarIcon size={20} />
                 </span>

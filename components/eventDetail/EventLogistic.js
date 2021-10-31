@@ -13,7 +13,7 @@ function EventLogistic(props) {
       </div>
       <Container className="pt-4  px-3">
         <p className=" display-5 ">{title}</p>
-        <ListGroup className="border-0">
+        <ListGroup className="border-0 bg-transparent">
           <LogisticsItem icon={CalendarIcon} iconProps={{ size: 20 }}>
             {humanReadableDate(date)}
           </LogisticsItem>
