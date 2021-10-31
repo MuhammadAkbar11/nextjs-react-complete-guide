@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Open+Sans:wght@400;700&display=swap");
 
+@import "./variables";
 @import "~bootswatch/dist/lumen/variables";
 
 @import "~bootstrap/scss/bootstrap";
@@ -17,3 +18,5 @@ body {
 .img-cover {
   object-fit: cover;
 }
+
+@import "./event-detail";
