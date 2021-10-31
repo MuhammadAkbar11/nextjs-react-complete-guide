@@ -7,7 +7,7 @@ import LogisticsItem from "./LogisticsItem";
 function EventLogistic(props) {
   const { date, address, image, title } = props;
   return (
-    <section className="px-5 pt-5 pb-3   event-logistics rounded-3">
+    <section className=" pt-5 pb-3   event-logistics rounded-3">
       <div className="event-logistics-image p-0 border">
         <Image src={`/${image}`} alt={title} />
       </div>

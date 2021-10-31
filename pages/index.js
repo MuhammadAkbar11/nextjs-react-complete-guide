@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { Container } from "react-bootstrap";
 import EventList from "../components/events/EventList";
 import { getFeaturedEvents } from "../data/dummy-data";
@@ -5,8 +6,11 @@ import { getFeaturedEvents } from "../data/dummy-data";
 function HomePage() {
   const featuredEvents = getFeaturedEvents();
   return (
-    <Container>
-      <h1>Home Page</h1>
+    <Container className="event-container">
+      <Head>
+        <title>Home</title>
+      </Head>
+      <h5>Featured Events</h5>
       <EventList items={featuredEvents} />
     </Container>
   );

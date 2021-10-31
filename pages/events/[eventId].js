@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Head from "next/head";
 import { Container } from "react-bootstrap";
 import EventContent from "../../components/eventDetail/EventContent";
 import EventLogistics from "../../components/eventDetail/EventLogistic";
@@ -14,11 +15,19 @@ function EventDetailPage() {
   const event = getEventById(eventId);
 
   return (
-    <Container className="py-4">
+    <Container className="event-container ">
       {!event ? (
-        <EventNotFound eventId={eventId} />
+        <>
+          <Head>
+            <title>Event - Not Found</title>
+          </Head>
+          <EventNotFound eventId={eventId} />
+        </>
       ) : (
         <>
+          <Head>
+            <title>Event - {event?.title}</title>
+          </Head>
           <EventLogistics
             date={event?.date}
             address={event?.location}

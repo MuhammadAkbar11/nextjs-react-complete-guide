@@ -3,7 +3,7 @@ import { EmojiSadIcon } from "../icons";
 
 function EventNotFound({ eventId }) {
   return (
-    <section className="event-notfound py-5 ">
+    <section className="event-notfound py-5 mb-auto h-100 ">
       <Container className=" d-flex flex-column align-items-center justify-content-center  ">
         <div className="mb-3">
           <EmojiSadIcon size={90} />
