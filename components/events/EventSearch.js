@@ -22,7 +22,7 @@ function EventSearch({ onSearch }) {
         <Card.Body className="d-flex flex-column flex-md-row gap-3 px-3 justify-content-start ">
           <Form.Group
             as={Row}
-            className="mb-2 d-flex align-items-center flex-grow-1"
+            className=" d-flex align-items-center flex-grow-1"
             controlId="years"
           >
             <Form.Label column sm={4}>
@@ -32,6 +32,7 @@ function EventSearch({ onSearch }) {
               <Form.Select size="sm" ref={yearInputRef}>
                 <option value="2020">2020</option>
                 <option value="2021">2021</option>
+                <option value="2022">2022</option>
               </Form.Select>
             </Col>
           </Form.Group>

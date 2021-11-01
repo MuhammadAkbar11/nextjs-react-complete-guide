@@ -1,8 +1,11 @@
 import { useRouter } from "next/router";
-import { Container } from "react-bootstrap";
+import Link from "next/link";
+import { Container, Button } from "react-bootstrap";
+import EventList from "../../components/events/EventList";
 import { EmojiSadIcon, ExclamationCircleIcon } from "../../components/icons";
 import Loader from "../../components/ui/Loader";
 import { getFilteredEvents } from "../../data/dummy-data";
+import { getMonthByIndex } from "../../data/months-data";
 
 function FilteredEventsPage() {
   const router = useRouter();
@@ -40,10 +43,13 @@ function FilteredEventsPage() {
           <div className="mb-3">
             <EmojiSadIcon size={90} />
           </div>
-          <p className=" display-6 text-center ">
+          <p className="mb-4 display-6 text-center ">
             Sorry! Filter is <span className="text-danger">Invalid</span> please
-            adjust your value{" "}
+            adjust your value
           </p>
+          <Link href="/events">
+            <Button>Show All Events</Button>
+          </Link>
         </div>
       </Container>
     );
@@ -54,6 +60,8 @@ function FilteredEventsPage() {
     month: numMonth,
   });
 
+  const month = getMonthByIndex(numMonth - 1)?.[0];
+
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <Container className="event-container mt-2">
@@ -62,16 +70,27 @@ function FilteredEventsPage() {
             <ExclamationCircleIcon size={90} />
           </div>
           <p className=" display-6 text-center ">
-            Sorry! No event found for the chosen filter
+            Sorry! No event found in {month} {numYear}
           </p>
+          <Link href="/events">
+            <Button>Show All Events</Button>
+          </Link>
         </div>
       </Container>
     );
   }
 
-  // console.log(numYear, numMonth);
-
-  return <Container className="event-container mt-2">{content}</Container>;
+  return (
+    <Container className="event-container mt-2">
+      <h4 className="text-center mb-4">
+        Events in {month} {numYear}
+      </h4>
+      <h6 className="text-dark text-opacity-75 text-end">
+        {filteredEvents.length} Events Found
+      </h6>
+      <EventList items={filteredEvents} />
+    </Container>
+  );
 }
 
 export default FilteredEventsPage;

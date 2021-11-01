@@ -17,4 +17,8 @@ const getAllMonths = () => {
   return MONTHS_DATA;
 };
 
-export { getAllMonths };
+const getMonthByIndex = i => {
+  return MONTHS_DATA.filter((e, idx) => i === idx);
+};
+
+export { getAllMonths, getMonthByIndex };
