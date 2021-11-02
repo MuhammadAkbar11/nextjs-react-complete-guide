@@ -12,8 +12,9 @@ function HomePage(props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
   console.log("(Re-) Generating");
+  console.log(context);
   const filePath = path.join(process.cwd(), "data", "dummy-backend.json");
   const jsonData = await fs.readFile(filePath);
   const data = JSON.parse(jsonData);
@@ -23,6 +24,8 @@ export async function getStaticProps() {
       products: data.products,
     },
     revalidate: 10,
+    // notFound: true, // Menampilkan 404 page
+    // redirect:
   };
 }
 
