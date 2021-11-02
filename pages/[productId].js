@@ -1,13 +1,15 @@
 import path from "path";
 import fs from "fs/promises";
 import { Fragment } from "react";
+import Link from "next/link";
 
 function ProductDetailPage(props) {
-  console.log(props);
+  const { product } = props;
   return (
     <Fragment>
-      <h2>Title</h2>
-      <p>Description</p>
+      <h2>{product.title}</h2>
+      <p>{product.description}</p>
+      <Link href="/">Back to all products</Link>
     </Fragment>
   );
 }
@@ -27,6 +29,19 @@ export async function getStaticProps(context) {
     props: {
       product,
     },
+  };
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { productId: "p1" } },
+      { params: { productId: "p2" } },
+      { params: { productId: "p3" } },
+      { params: { productId: "p4" } },
+      { params: { productId: "p5" } },
+    ],
+    fallback: false,
   };
 }
 

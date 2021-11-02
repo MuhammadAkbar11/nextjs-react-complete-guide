@@ -7,7 +7,13 @@ function HomePage(props) {
   return (
     <ul>
       {products.map(product => (
-        <li key={product.id}>
+        <li
+          key={product.id}
+          style={{
+            display: "flex",
+            gap: 7,
+          }}
+        >
           {product.title} <Link href={`/${product.id}`}>Detail</Link>{" "}
         </li>
       ))}
