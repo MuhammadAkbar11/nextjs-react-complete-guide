@@ -5,13 +5,25 @@ import Link from "next/link";
 
 function ProductDetailPage(props) {
   const { product } = props;
+
+  if (!product) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <Fragment>
-      <h2>{product.title}</h2>
-      <p>{product.description}</p>
+      <h2>{product?.title}</h2>
+      <p>{product?.description}</p>
       <Link href="/">Back to all products</Link>
     </Fragment>
   );
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [{ params: { productId: "p1" } }],
+    fallback: true, // false, true, blocking
+  };
 }
 
 export async function getStaticProps(context) {
@@ -29,19 +41,6 @@ export async function getStaticProps(context) {
     props: {
       product,
     },
-  };
-}
-
-export async function getStaticPaths() {
-  return {
-    paths: [
-      { params: { productId: "p1" } },
-      { params: { productId: "p2" } },
-      { params: { productId: "p3" } },
-      { params: { productId: "p4" } },
-      { params: { productId: "p5" } },
-    ],
-    fallback: false,
   };
 }
 
