@@ -14,7 +14,7 @@ function HomePage(props) {
             gap: 7,
           }}
         >
-          {product.title} <Link href={`/${product.id}`}>Detail</Link>{" "}
+          {product.title} <Link href={`/products/${product.id}`}>Detail</Link>{" "}
         </li>
       ))}
     </ul>
