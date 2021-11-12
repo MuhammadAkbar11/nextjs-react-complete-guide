@@ -1,19 +1,28 @@
 import Head from "next/head";
 import { Container } from "react-bootstrap";
 import EventList from "../components/events/EventList";
-import { getFeaturedEvents } from "../data/dummy-data";
+import { getFeaturedEvents } from "../helpers/api-utils";
 
-function HomePage() {
-  const featuredEvents = getFeaturedEvents();
+function HomePage(props) {
+  const { events } = props;
   return (
     <Container className="event-container pt-3">
       <Head>
         <title>Home</title>
       </Head>
       <h5>Featured Events</h5>
-      <EventList items={featuredEvents} />
+      <EventList items={events} />
     </Container>
   );
+}
+
+export async function getStaticProps() {
+  const featuredEvents = await getFeaturedEvents();
+  return {
+    props: {
+      events: featuredEvents,
+    },
+  };
 }
 
 export default HomePage;
