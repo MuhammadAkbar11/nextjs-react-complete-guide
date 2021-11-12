@@ -1,12 +1,20 @@
 import Head from "next/head";
-import { Container } from "react-bootstrap";
+import { Container, Spinner } from "react-bootstrap";
 import EventContent from "../../components/eventDetail/EventContent";
 import EventLogistics from "../../components/eventDetail/EventLogistic";
 import EventNotFound from "../../components/eventDetail/EventNotFound";
-import { getAllEvents, getEventById } from "../../helpers/api-utils";
+import { getEventById, getFeaturedEvents } from "../../helpers/api-utils";
 
 function EventDetailPage(props) {
   const { event, eventId } = props;
+
+  // if (!event) {
+  //   return (
+  //     <div className="mt-3">
+  //       <Spinner animation="border" size="lg" />
+  //     </div>
+  //   );
+  // }
 
   return (
     <Container className="event-container pt-3">
@@ -40,20 +48,22 @@ function EventDetailPage(props) {
 export async function getStaticProps(context) {
   const eventId = context.params.eventId;
   const event = await getEventById(+eventId);
+
   return {
     props: {
-      event,
+      event: event || null,
       eventId,
     },
+    revalidate: 30,
   };
 }
 
 export async function getStaticPaths() {
-  const events = await getAllEvents();
+  const events = await getFeaturedEvents();
   const paths = events.map(event => ({ params: { eventId: `${event.id}` } }));
   return {
     paths: paths,
-    fallback: false,
+    fallback: "blocking",
   };
 }
 
