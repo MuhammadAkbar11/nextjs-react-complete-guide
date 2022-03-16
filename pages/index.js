@@ -9,6 +9,10 @@ function HomePage(props) {
     <Container className="event-container pt-3">
       <Head>
         <title>Home</title>
+        <meta
+          name="description"
+          content="Find a lot of great events that allow you to evolve"
+        />
       </Head>
       <h5>Featured Events</h5>
       <EventList items={events} />
