@@ -29,7 +29,9 @@ function EventDetailPage(props) {
         <>
           <Head>
             <title>Event - {event?.title}</title>
+            <meta name="description" content={event?.description} />
           </Head>
+
           <EventLogistics
             date={event?.date}
             address={event?.location}

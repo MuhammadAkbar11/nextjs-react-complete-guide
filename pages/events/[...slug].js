@@ -1,12 +1,12 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Head from "next/head";
 import { Container, Button } from "react-bootstrap";
 import EventList from "../../components/events/EventList";
 import { EmojiSadIcon, ExclamationCircleIcon } from "../../components/icons";
 import Loader from "../../components/ui/Loader";
 import { getMonthByIndex } from "../../data/months-data";
-import { getFilteredEvents } from "../../helpers/api-utils";
 import useSWR from "swr";
 import fetcher from "../../helpers/fetcher";
 
@@ -19,7 +19,7 @@ function FilteredEventsPage() {
   const filterData = router.query.slug;
 
   const { data, error } = useSWR(
-    "https://nextjs-app-ce56a-default-rtdb.asia-southeast1.firebasedatabase.app/events.json",
+    "https://nextjs-app-3f3f8-default-rtdb.asia-southeast1.firebasedatabase.app/events.json",
     fetcher
   );
 
@@ -63,20 +63,29 @@ function FilteredEventsPage() {
   ) {
     // invalidFiltered = true;
     return (
-      <Container className="event-container mt-2">
-        <div className="d-flex  w-100 justify-content-center align-items-center py-5 flex-column">
-          <div className="mb-3">
-            <EmojiSadIcon size={90} />
+      <>
+        <Head>
+          <title>Filtered Events</title>
+          <meta
+            name="description"
+            content="Sorry! Filter is Invalid please adjust your value"
+          />
+        </Head>
+        <Container className="event-container mt-2">
+          <div className="d-flex  w-100 justify-content-center align-items-center py-5 flex-column">
+            <div className="mb-3">
+              <EmojiSadIcon size={90} />
+            </div>
+            <p className="mb-4 display-6 text-center ">
+              Sorry! Filter is <span className="text-danger">Invalid</span>{" "}
+              please adjust your value
+            </p>
+            <Link href="/events">
+              <Button>Show All Events</Button>
+            </Link>
           </div>
-          <p className="mb-4 display-6 text-center ">
-            Sorry! Filter is <span className="text-danger">Invalid</span> please
-            adjust your value
-          </p>
-          <Link href="/events">
-            <Button>Show All Events</Button>
-          </Link>
-        </div>
-      </Container>
+        </Container>
+      </>
     );
   }
 
@@ -92,35 +101,54 @@ function FilteredEventsPage() {
 
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
-      <Container className="event-container mt-2">
-        <div className="d-flex  w-100 justify-content-center align-items-center py-5 flex-column">
-          <div className="mb-3">
-            <ExclamationCircleIcon size={90} />
+      <>
+        {" "}
+        <Head>
+          <title>Filtered Events - No Events Found</title>
+          <meta
+            name="description"
+            content={`Sorry! No events found in ${month}/${numYear}`}
+          />
+        </Head>
+        <Container className="event-container mt-2">
+          <div className="d-flex  w-100 justify-content-center align-items-center py-5 flex-column">
+            <div className="mb-3">
+              <ExclamationCircleIcon size={90} />
+            </div>
+            <p className=" display-6 text-center ">
+              Sorry! No event found in{" "}
+              <span className="fw-bold">
+                {month} {numYear}
+              </span>
+            </p>
+            <Link href="/events">
+              <Button>Show All Events</Button>
+            </Link>
           </div>
-          <p className=" display-6 text-center ">
-            Sorry! No event found in{" "}
-            <span className="fw-bold">
-              {month} {numYear}
-            </span>
-          </p>
-          <Link href="/events">
-            <Button>Show All Events</Button>
-          </Link>
-        </div>
-      </Container>
+        </Container>
+      </>
     );
   }
 
   return (
-    <Container className="event-container mt-2">
-      <h4 className="text-center mb-4">
-        Events in {month} {numYear}
-      </h4>
-      <h6 className="text-dark text-opacity-75 text-end">
-        {filteredEvents.length} Events Found
-      </h6>
-      <EventList items={filteredEvents} />
-    </Container>
+    <>
+      <Head>
+        <title>Filtered Event</title>
+        <meta
+          name="description"
+          content={`All events for ${month}/${numYear}`}
+        />
+      </Head>
+      <Container className="event-container mt-2">
+        <h4 className="text-center mb-4">
+          Events in {month} {numYear}
+        </h4>
+        <h6 className="text-dark text-opacity-75 text-end">
+          {filteredEvents.length} Events Found
+        </h6>
+        <EventList items={filteredEvents} />
+      </Container>
+    </>
   );
 }
 

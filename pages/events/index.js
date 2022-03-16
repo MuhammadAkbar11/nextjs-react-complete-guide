@@ -17,7 +17,11 @@ function AllEventsPage(props) {
   return (
     <Container className="event-container pt-3">
       <Head>
-        <title>Home</title>
+        <title>All Events</title>
+        <meta
+          name="description"
+          content="Find a lot of great events that allow you to evolve"
+        />
       </Head>
       <EventSearch onSearch={searchEventsHandler} />
       <h5>All Events</h5>
