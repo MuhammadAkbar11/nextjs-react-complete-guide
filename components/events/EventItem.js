@@ -1,5 +1,6 @@
-import { Card, Row, Col, Image } from "react-bootstrap";
+import { Card, Row, Col, Image as RBImage } from "react-bootstrap";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRightIcon, CalendarIcon, LocationMarkerIcon } from "../icons";
 
 function EventItem(props) {
@@ -23,8 +24,14 @@ function EventItem(props) {
             style={{
               height: 230,
             }}
+            className=" position-relative "
           >
-            <Image className="h-100 img-cover" src={"/" + image} alt={title} />
+            <Image
+              className="h-100 img-cover"
+              src={"/" + image}
+              alt={title}
+              layout="fill"
+            />
           </Col>
           <Col md={8}>
             <Card.Body className="h-100 d-flex flex-column">
