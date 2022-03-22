@@ -36,13 +36,23 @@ function FilteredEventsPage() {
     }
   }, [data]);
 
+  let pageHeadData = (
+    <Head>
+      <title>BaeEvents - Loading...</title>
+      <meta name="description" content={`A list of filtred events`} />
+    </Head>
+  );
+
   if (!events) {
     return (
-      <Container className="event-container mt-2">
-        <div className="d-flex w-100 justify-content-center py-5">
-          <Loader />
-        </div>
-      </Container>
+      <>
+        {pageHeadData}
+        <Container className="event-container mt-2">
+          <div className="d-flex w-100 justify-content-center py-5">
+            <Loader />
+          </div>
+        </Container>
+      </>
     );
   }
 
@@ -51,6 +61,17 @@ function FilteredEventsPage() {
 
   const numYear = +filteredYear;
   const numMonth = +filteredMonth;
+
+  const month = getMonthByIndex(numMonth - 1)?.[0];
+
+  pageHeadData = (
+    <Head>
+      <title>
+        BaeEvents - Events In {month} {numYear}
+      </title>
+      <meta name="description" content={`All events for ${month}/${numYear}`} />
+    </Head>
+  );
 
   if (
     isNaN(numYear) ||
@@ -65,7 +86,7 @@ function FilteredEventsPage() {
     return (
       <>
         <Head>
-          <title>Filtered Events</title>
+          BaeEvents - Events In {month} {numYear}
           <meta
             name="description"
             content="Sorry! Filter is Invalid please adjust your value"
@@ -89,8 +110,6 @@ function FilteredEventsPage() {
     );
   }
 
-  const month = getMonthByIndex(numMonth - 1)?.[0];
-
   const filteredEvents = events.filter(event => {
     const eventDate = new Date(event.date);
     return (
@@ -104,7 +123,7 @@ function FilteredEventsPage() {
       <>
         {" "}
         <Head>
-          <title>Filtered Events - No Events Found</title>
+          <title>BaeEvents - No Events Found</title>
           <meta
             name="description"
             content={`Sorry! No events found in ${month}/${numYear}`}
@@ -132,13 +151,7 @@ function FilteredEventsPage() {
 
   return (
     <>
-      <Head>
-        <title>Filtered Event</title>
-        <meta
-          name="description"
-          content={`All events for ${month}/${numYear}`}
-        />
-      </Head>
+      {pageHeadData}
       <Container className="event-container mt-2">
         <h4 className="text-center mb-4">
           Events in {month} {numYear}

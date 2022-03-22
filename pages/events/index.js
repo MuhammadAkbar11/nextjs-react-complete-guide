@@ -15,18 +15,20 @@ function AllEventsPage(props) {
   };
 
   return (
-    <Container className="event-container pt-3">
+    <>
       <Head>
-        <title>All Events</title>
+        <title>BaeEvents - All Events</title>
         <meta
           name="description"
           content="Find a lot of great events that allow you to evolve"
         />
       </Head>
-      <EventSearch onSearch={searchEventsHandler} />
-      <h5>All Events</h5>
-      <EventList items={events} />
-    </Container>
+      <Container className="event-container pt-3">
+        <EventSearch onSearch={searchEventsHandler} />
+        <h5>All Events</h5>
+        <EventList items={events} />
+      </Container>
+    </>
   );
 }
 

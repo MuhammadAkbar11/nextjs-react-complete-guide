@@ -21,14 +21,14 @@ function EventDetailPage(props) {
       {!event ? (
         <>
           <Head>
-            <title>Event - Not Found</title>
+            <title>BaeEvent - Not Found</title>
           </Head>
           <EventNotFound eventId={eventId} />
         </>
       ) : (
         <>
           <Head>
-            <title>Event - {event?.title}</title>
+            <title>BaeEvent - {event?.title}</title>
             <meta name="description" content={event?.description} />
           </Head>
 
