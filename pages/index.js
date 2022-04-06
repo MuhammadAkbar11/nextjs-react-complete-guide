@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import axios from "axios";
 
 function HomePage() {
   const emailInputRef = useRef();
@@ -10,7 +11,22 @@ function HomePage() {
     const { value: emailValue } = emailInputRef.current;
     const { value: feedbackValue } = feedbackInputRef.current;
 
-    console.log(emailValue, feedbackValue);
+    const saveData = async () => {
+      try {
+        const response = await axios.post("/api/feedback", {
+          email: emailValue,
+          text: feedbackValue,
+        });
+
+        emailInputRef.current.value = "";
+        feedbackInputRef.current.value = "";
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    saveData();
   };
 
   return (
