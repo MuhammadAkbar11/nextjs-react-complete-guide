@@ -13,8 +13,11 @@ const getFeedbackData = () => {
   return JSON.parse(jsonData);
 };
 
-function getFeedback(req, res) {
-  res.json({ message: "GET" });
+function getFeedbacks(req, res) {
+  res.json({
+    message: "GET - Success get feedbacks",
+    feedbacks: getFeedbackData(),
+  });
 }
 
 function postFeedback(req, res) {
@@ -39,7 +42,7 @@ function handler(req, res) {
   const { method } = req;
 
   const logMethod = {
-    GET: () => getFeedback(req, res),
+    GET: () => getFeedbacks(req, res),
     POST: () => postFeedback(req, res),
   };
 
