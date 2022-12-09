@@ -1,18 +1,22 @@
 export const getAllEvents = async () => {
-  const response = await fetch(
-    "https://nextjs-app-3f3f8-default-rtdb.asia-southeast1.firebasedatabase.app/events.json"
-  );
-  const data = await response.json();
+  try {
+    const response = await fetch(
+      "https://nextjs-app-3f3f8-default-rtdb.asia-southeast1.firebasedatabase.app/events.json"
+    );
+    const data = await response.json();
 
-  const events = [];
-  for (const key in data) {
-    events.push({
-      id: key,
-      ...data[key],
-    });
+    const events = [];
+    for (const key in data) {
+      events.push({
+        id: key,
+        ...data[key],
+      });
+    }
+
+    return events;
+  } catch (error) {
+    console.log(error);
   }
-
-  return events;
 };
 
 export const getFeaturedEvents = async () => {
@@ -22,7 +26,6 @@ export const getFeaturedEvents = async () => {
 
 export const getEventById = async id => {
   const allEvents = await getAllEvents();
-  console.log(id);
   return allEvents.find(event => event.id === id);
 };
 
