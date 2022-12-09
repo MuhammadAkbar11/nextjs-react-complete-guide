@@ -1,20 +1,12 @@
 import Head from "next/head";
-import { Container, Spinner } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import EventContent from "../../components/eventDetail/EventContent";
 import EventLogistics from "../../components/eventDetail/EventLogistic";
 import EventNotFound from "../../components/eventDetail/EventNotFound";
-import { getEventById, getFeaturedEvents } from "../../helpers/api-utils";
+import { getEventById, getFeaturedEvents } from "../../utils/api-utils";
 
 function EventDetailPage(props) {
   const { event, eventId } = props;
-
-  // if (!event) {
-  //   return (
-  //     <div className="mt-3">
-  //       <Spinner animation="border" size="lg" />
-  //     </div>
-  //   );
-  // }
 
   return (
     <Container className="event-container pt-3">

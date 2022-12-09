@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Container } from "react-bootstrap";
 import EventList from "../components/events/EventList";
-import { getFeaturedEvents } from "../helpers/api-utils";
+import { getFeaturedEvents } from "../utils/api-utils";
 
 function HomePage(props) {
   const { events } = props;

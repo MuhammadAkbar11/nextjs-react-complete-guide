@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { Container } from "react-bootstrap";
 import EventList from "../../components/events/EventList";
 import EventSearch from "../../components/events/EventSearch";
-import { getAllEvents } from "../../helpers/api-utils";
+import { getAllEvents } from "../../utils/api-utils";
 
 function AllEventsPage(props) {
   const router = useRouter();

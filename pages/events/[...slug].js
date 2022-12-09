@@ -8,11 +8,9 @@ import { EmojiSadIcon, ExclamationCircleIcon } from "../../components/icons";
 import Loader from "../../components/ui/Loader";
 import { getMonthByIndex } from "../../data/months-data";
 import useSWR from "swr";
-import fetcher from "../../helpers/fetcher";
+import fetcher from "../../utils/fetcher";
 
 function FilteredEventsPage() {
-  // const { events, hasError, date } = props;
-
   const [events, setEvents] = React.useState(null);
   const router = useRouter();
 
