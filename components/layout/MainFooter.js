@@ -13,8 +13,13 @@ function MainFooter() {
       <footer className="py-3 text-center ">
         <p>
           Event Manager, built by{" "}
-          <a href="#" className="text-primary">
-            Muhammad Akbar lel-let.
+          <a
+            href="https://github.com/MuhammadAkbar11"
+            target={"_blank"}
+            rel="noreferrer"
+            className="text-primary"
+          >
+            Muhammad Akbar.
           </a>
         </p>
         <a href="#" onClick={scrollToTop} className="ms-auto">
