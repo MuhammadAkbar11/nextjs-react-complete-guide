@@ -19,6 +19,7 @@
     "react-bootstrap": "^2.0.1",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.40.0",
+    "react-query": "^3.39.2",
     "swr": "^1.0.1",
     "yup": "^0.32.11"
   },
