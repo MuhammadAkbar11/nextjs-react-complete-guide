@@ -7,32 +7,14 @@ import EventList from "../../components/events/EventList";
 import { EmojiSadIcon, ExclamationCircleIcon } from "../../components/icons";
 import Loader from "../../components/ui/Loader";
 import { getMonthByIndex } from "../../data/months-data";
-import useSWR from "swr";
-import fetcher from "../../utils/fetcher";
+import useGetEvents from "../../utils/hooks/useGetEvents";
 
 function FilteredEventsPage() {
-  const [events, setEvents] = React.useState(null);
   const router = useRouter();
 
   const filterData = router.query.slug;
 
-  const { data, error } = useSWR(
-    "https://nextjs-app-3f3f8-default-rtdb.asia-southeast1.firebasedatabase.app/events.json",
-    fetcher
-  );
-
-  React.useEffect(() => {
-    if (data) {
-      const eventsArr = [];
-      for (const key in data) {
-        eventsArr.push({
-          id: key,
-          ...data[key],
-        });
-      }
-      setEvents(eventsArr);
-    }
-  }, [data]);
+  const { data: events, error, isLoading } = useGetEvents();
 
   let pageHeadData = (
     <Head>
@@ -40,8 +22,8 @@ function FilteredEventsPage() {
       <meta name="description" content={`A list of filtred events`} />
     </Head>
   );
-
-  if (!events) {
+  console.log(error);
+  if (isLoading) {
     return (
       <>
         {pageHeadData}
@@ -99,7 +81,7 @@ function FilteredEventsPage() {
               Sorry! Filter is <span className="text-danger">Invalid</span>{" "}
               please adjust your value
             </p>
-            <Link href="/events">
+            <Link href="/events" passHref>
               <Button>Show All Events</Button>
             </Link>
           </div>
@@ -119,7 +101,6 @@ function FilteredEventsPage() {
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <>
-        {" "}
         <Head>
           <title>BaeEvents - No Events Found</title>
           <meta
@@ -138,7 +119,7 @@ function FilteredEventsPage() {
                 {month} {numYear}
               </span>
             </p>
-            <Link href="/events">
+            <Link href="/events" passHref>
               <Button>Show All Events</Button>
             </Link>
           </div>
