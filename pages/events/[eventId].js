@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { Container } from "react-bootstrap";
+import EventComments from "../../components/eventDetail/EventComments";
 import EventContent from "../../components/eventDetail/EventContent";
 import EventLogistics from "../../components/eventDetail/EventLogistic";
 import EventNotFound from "../../components/eventDetail/EventNotFound";
@@ -33,6 +34,7 @@ function EventDetailPage(props) {
           <EventContent>
             <p>{event?.description}</p>
           </EventContent>
+          <EventComments eventId={eventId} />
         </>
       )}
     </Container>
