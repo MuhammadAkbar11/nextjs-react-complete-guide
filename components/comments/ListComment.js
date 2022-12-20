@@ -20,7 +20,7 @@ function ListComment(props) {
 
   const addNewCommentHandler = data => {
     mutation.mutate(data, {
-      onSuccess: data => {
+      onSuccess: () => {
         queryClient.invalidateQueries(["event-comments", { eventId }]);
       },
     });

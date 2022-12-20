@@ -28,7 +28,6 @@ function NewsLetterRegistration() {
           "Content-Type": "application/json",
         },
       });
-      // console.log(response);
     } catch (error) {
       console.log(error);
     }

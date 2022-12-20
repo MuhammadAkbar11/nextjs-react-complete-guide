@@ -12,10 +12,7 @@ function MainHeader() {
             </Link>
           </Col>
           <Col xs={6}>
-            <Nav
-              className="header-nav justify-content-end align-items-center"
-              // activeKey="/home"
-            >
+            <Nav className="header-nav justify-content-end align-items-center">
               <Nav.Item>
                 <Link href="/events" passHref>
                   <Nav.Link className="header-nav-link text-link  ">
