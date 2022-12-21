@@ -8,7 +8,7 @@ function MainHeader() {
         <Row className="flex-nowrap justify-content-between align-items-center">
           <Col xs={3}>
             <Link href="/">
-              <a className="header-logo">Events</a>
+              <a className="header-logo">Baevent</a>
             </Link>
           </Col>
           <Col xs={6}>

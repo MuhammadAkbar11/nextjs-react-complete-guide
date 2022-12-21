@@ -12,7 +12,7 @@ function MainFooter() {
     <Container className=" mt-auto border-top event-container d-flex justify-content-center">
       <footer className="py-3 text-center ">
         <p>
-          Event Manager, built by{" "}
+          Baevent, built by{" "}
           <a
             href="https://github.com/MuhammadAkbar11"
             target={"_blank"}
