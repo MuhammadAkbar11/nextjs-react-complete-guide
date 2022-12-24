@@ -1,7 +1,10 @@
 const path = require("path");
 
 module.exports = {
-  reactStrictMode: false,
+  reactStrictMode: true,
+  images: {
+    domains: ["loremflickr.com"],
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
