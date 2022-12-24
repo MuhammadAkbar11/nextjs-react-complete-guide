@@ -17,7 +17,7 @@ const eventSchema = new Schema({
   dateStart: {
     type: String,
   },
-  dateStart: {
+  dateEnd: {
     type: String,
   },
   image: {
