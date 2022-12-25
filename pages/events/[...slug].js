@@ -22,7 +22,7 @@ function FilteredEventsPage() {
       <meta name="description" content={`A list of filtred events`} />
     </Head>
   );
-  console.log(error);
+
   if (isLoading) {
     return (
       <>

@@ -4,10 +4,32 @@ import EventComments from "../../components/eventDetail/EventComments";
 import EventContent from "../../components/eventDetail/EventContent";
 import EventLogistics from "../../components/eventDetail/EventLogistic";
 import EventNotFound from "../../components/eventDetail/EventNotFound";
-import { getEventById, getFeaturedEvents } from "../../utils/api-utils";
+import { getEventDetailService } from "../../utils/services/event.service";
+import { API_URL } from "../../utils/constants";
+import { humanReadableDate } from "../../utils/date";
+import { useRouter } from "next/router";
+import Loader from "../../components/ui/Loader";
 
 function EventDetailPage(props) {
+  const { isFallback } = useRouter();
+
   const { event, eventId } = props;
+  if (isFallback) {
+    return (
+      <>
+        <Container className="event-container pt-3">
+          <div className="d-flex justify-content-centent py-4 ">
+            <Loader />
+          </div>
+        </Container>
+      </>
+    );
+  }
+
+  const dateStartFormat = humanReadableDate(event?.dateStart);
+  const dateEndFormat = humanReadableDate(event?.dateEnd);
+
+  const date = `${dateStartFormat} - ${dateEndFormat}`;
 
   return (
     <Container className="event-container pt-3">
@@ -26,7 +48,7 @@ function EventDetailPage(props) {
           </Head>
 
           <EventLogistics
-            date={event?.date}
+            date={date}
             address={event?.location}
             image={event?.image}
             title={event?.title}
@@ -42,24 +64,30 @@ function EventDetailPage(props) {
 }
 
 export async function getStaticProps(context) {
-  const eventId = context.params.eventId;
-  const event = await getEventById(+eventId);
+  const eventSlug = context.params.eventSlug;
 
-  return {
-    props: {
-      event: event || null,
-      eventId,
-    },
-    revalidate: 30,
-  };
+  try {
+    const event = await getEventDetailService(API_URL, eventSlug);
+    return {
+      notFound: false,
+      props: {
+        event: event || null,
+        eventId: eventSlug,
+      },
+      revalidate: 5,
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+      revalidate: 5,
+    };
+  }
 }
 
 export async function getStaticPaths() {
-  const events = await getFeaturedEvents();
-  const paths = events.map(event => ({ params: { eventId: `${event.id}` } }));
   return {
-    paths: paths,
-    fallback: "blocking",
+    paths: [],
+    fallback: true,
   };
 }
 
