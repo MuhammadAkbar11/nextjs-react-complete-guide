@@ -8,68 +8,51 @@ import { EmojiSadIcon, ExclamationCircleIcon } from "../../components/icons";
 import Loader from "../../components/ui/Loader";
 import { getMonthByIndex } from "../../data/months-data";
 import useGetEvents from "../../utils/hooks/useGetEvents";
+import { useQuery } from "react-query";
+import { getAllEventsService } from "../../utils/services/event.service";
+import EventFilterList from "../../components/events/EventFilterList";
 
 function FilteredEventsPage() {
   const router = useRouter();
+  const [isInvalidFilter, setIsInvalidFiter] = React.useState(false);
+  const [filterDate, setFilterDate] = React.useState(null);
+  const slug = router.query?.slug;
 
-  const filterData = router.query.slug;
-  const filteredYear = filterData?.[0];
-  const filteredMonth = filterData?.[1];
+  React.useEffect(() => {
+    if (slug) {
+      const filteredYear = slug[0];
+      const filteredMonth = slug[1];
+      const numYear = +filteredYear;
+      const numMonth = +filteredMonth;
+      const monthShort = getMonthByIndex(numMonth - 1, "shortened");
+      const monthLong = getMonthByIndex(numMonth - 1, "long");
+      setFilterDate({
+        year: numYear,
+        month: numMonth,
+        monthLong,
+        monthShort,
+      });
 
-  const numYear = +filteredYear;
-  const numMonth = +filteredMonth;
+      if (
+        isNaN(numYear) ||
+        isNaN(numMonth) ||
+        numYear > 2030 ||
+        numYear < 2020 ||
+        numMonth < 1 ||
+        numMonth > 12
+      ) {
+        setIsInvalidFiter(true);
+      } else {
+        setIsInvalidFiter(false);
+      }
+    }
+  }, [slug]);
 
-  const monthSort = getMonthByIndex(numMonth - 1, "shortened")?.[0];
-  const month = getMonthByIndex(numMonth - 1, "long")?.[0];
-
-  const { data, error, isLoading } = useGetEvents({
-    limit: 10,
-    year: numYear,
-    month: monthSort,
-  });
-
-  let pageHeadData = (
-    <Head>
-      <title>BaeEvents - Loading...</title>
-      <meta name="description" content={`A list of filtred events`} />
-    </Head>
-  );
-
-  if (isLoading) {
-    return (
-      <>
-        {pageHeadData}
-        <Container className="event-container mt-2">
-          <div className="d-flex w-100 justify-content-center py-5">
-            <Loader />
-          </div>
-        </Container>
-      </>
-    );
-  }
-
-  pageHeadData = (
-    <Head>
-      <title>
-        BaeEvents - Events In {month} {numYear}
-      </title>
-      <meta name="description" content={`All events for ${month}/${numYear}`} />
-    </Head>
-  );
-
-  if (
-    isNaN(numYear) ||
-    isNaN(numMonth) ||
-    numYear > 2030 ||
-    numYear < 2020 ||
-    numMonth < 1 ||
-    numMonth > 12
-  ) {
-    // invalidFiltered = true;
+  if (filterDate && isInvalidFilter) {
     return (
       <>
         <Head>
-          BaeEvents - Events In {month} {numYear}
+          <title>BaeEvents - Invalid Filter</title>
           <meta
             name="description"
             content="Sorry! Filter is Invalid please adjust your value"
@@ -93,50 +76,23 @@ function FilteredEventsPage() {
     );
   }
 
-  const events = data.events;
-
-  if (!events || events.length === 0) {
-    return (
-      <>
-        <Head>
-          <title>BaeEvents - No Events Found</title>
-          <meta
-            name="description"
-            content={`Sorry! No events found in ${month}/${numYear}`}
-          />
-        </Head>
-        <Container className="event-container mt-2">
-          <div className="d-flex  w-100 justify-content-center align-items-center py-5 flex-column">
-            <div className="mb-3">
-              <ExclamationCircleIcon size={90} />
-            </div>
-            <p className=" display-6 text-center ">
-              Sorry! No event found in{" "}
-              <span className="fw-bold">
-                {month} {numYear}
-              </span>
-            </p>
-            <Link href="/events" passHref>
-              <Button>Show All Events</Button>
-            </Link>
-          </div>
-        </Container>
-      </>
-    );
-  }
-
   return (
     <>
-      {pageHeadData}
-      <Container className="event-container mt-2">
-        <h4 className="text-center mb-4">
-          Events in {month} {numYear}
-        </h4>
-        <h6 className="text-dark text-opacity-75 text-end">
-          {events?.length} Events Found
-        </h6>
-        <EventList items={events} />
-      </Container>
+      {filterDate ? (
+        <>
+          <Container className="event-container mt-2">
+            <EventFilterList filterDate={filterDate} />
+          </Container>
+        </>
+      ) : (
+        <>
+          <Head>
+            <title>BaeEvents - Loading...</title>
+            <meta name="description" content={`A list of filtred events`} />
+          </Head>
+          <Container className="event-container mt-2"></Container>
+        </>
+      )}
     </>
   );
 }

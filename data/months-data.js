@@ -39,7 +39,7 @@ const getMonthByIndex = (i, type = "long") => {
   let monthsArr = MONTHS_DATA;
   if (type === "shortened") monthsArr = MONTHS_SORT_DATA;
   if (type === "long") monthsArr = MONTHS_DATA;
-  return monthsArr.filter((e, idx) => i === idx);
+  return monthsArr.find((e, idx) => i === idx);
 };
 
 export { getAllMonths, getMonthByIndex };
