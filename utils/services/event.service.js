@@ -2,11 +2,10 @@ import axios from "axios";
 import toQueriesToString from "../objToQueryStr";
 
 export const getAllEventsService = async (
-  prefixUrl = "/api/",
+  prefixUrl = "/api",
   filter = { limit: 10 }
 ) => {
   const queries = toQueriesToString(filter);
-
   try {
     const { data } = await axios.get(`${prefixUrl}/events?${queries}`);
 

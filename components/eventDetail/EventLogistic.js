@@ -10,13 +10,13 @@ function EventLogistic(props) {
   return (
     <section className=" py-3   event-logistics rounded-3">
       <div className="event-logistics-image p-0 border">
-        <Image src={`/${image}`} alt={title} layout="fill" />
+        <Image src={image} alt={title} layout="fill" />
       </div>
       <Container className="pt-4  px-3">
         <p className=" display-5 ">{title}</p>
         <ListGroup className="border-0 bg-transparent">
           <LogisticsItem icon={CalendarIcon} iconProps={{ size: 20 }}>
-            {humanReadableDate(date)}
+            {date}
           </LogisticsItem>
           <LogisticsItem icon={LocationMarkerIcon} iconProps={{ size: 20 }}>
             {transformAddressToText(address)}

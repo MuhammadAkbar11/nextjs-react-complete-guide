@@ -3,12 +3,15 @@ import { useRouter } from "next/router";
 import { Container } from "react-bootstrap";
 import EventList from "../../components/events/EventList";
 import EventSearch from "../../components/events/EventSearch";
-import { getAllEvents } from "../../utils/api-utils";
+import { getAllEventsService } from "../../utils/services/event.service";
+import { API_URL } from "../../utils/constants";
 
 function AllEventsPage(props) {
   const router = useRouter();
 
-  const { events } = props;
+  const {
+    eventsData: { events },
+  } = props;
 
   const searchEventsHandler = (year, month) => {
     router.push(`events/${year}/${month}`);
@@ -33,11 +36,11 @@ function AllEventsPage(props) {
 }
 
 export async function getStaticProps() {
-  const events = await getAllEvents();
+  const eventsData = await getAllEventsService(API_URL, { limit: 20 });
 
   return {
     props: {
-      events,
+      eventsData,
     },
     revalidate: 60,
   };

@@ -2,18 +2,16 @@ import { Card, Row, Col, Image as RBImage } from "react-bootstrap";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRightIcon, CalendarIcon, LocationMarkerIcon } from "../icons";
+import { humanReadableDate } from "../../utils/date";
 
 function EventItem(props) {
-  const { title, image, date, location, id } = props;
+  const { title, image, dateStart, dateEnd, location, slug } = props;
 
-  const humanReadableDate = new Date(date).toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+  const dateStartFormat = humanReadableDate(dateStart);
+  const dateEndFormat = humanReadableDate(dateEnd);
 
   const formatedAddress = location?.replace(", ", "\n");
-  const exploreLink = `/events/${id}`;
+  const exploreLink = `/events/${slug}`;
 
   return (
     <>
@@ -28,7 +26,7 @@ function EventItem(props) {
           >
             <Image
               className="h-100 img-cover"
-              src={"/" + image}
+              src={image}
               alt={title}
               layout="fill"
             />
@@ -40,7 +38,9 @@ function EventItem(props) {
                 <span className="me-2 ">
                   <CalendarIcon size={20} />
                 </span>
-                <time>{humanReadableDate}</time>
+                <time>
+                  {dateStartFormat} - {dateEndFormat}
+                </time>
               </Card.Text>
               <Card.Text className=" fst-italic  ">
                 <span className="me-2">

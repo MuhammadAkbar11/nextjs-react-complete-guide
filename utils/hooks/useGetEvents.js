@@ -1,7 +1,10 @@
 import { useQuery } from "react-query";
-import { getAllEventsService } from "../services/event";
+import { getAllEventsService } from "../services/event.service";
 
-const useGetEvents = () =>
-  useQuery("events", getAllEventsService, { staleTime: 15 * 1000 });
+const useGetEvents = (filter = { limit: 15 }) =>
+  useQuery("events", {
+    queryFn: () => getAllEventsService("/api", filter),
+    staleTime: 15 * 1000,
+  });
 
 export default useGetEvents;

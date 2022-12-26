@@ -8,7 +8,7 @@ function EventList(props) {
       <Row className=" pt-2 pb-5 ">
         {items.map(event => {
           return (
-            <Col sm={12} className="mb-4 mx-auto" key={event?.id}>
+            <Col sm={12} className="mb-4 mx-auto" key={event?._id}>
               <EventItem {...event} />
             </Col>
           );

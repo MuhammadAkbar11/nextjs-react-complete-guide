@@ -2,10 +2,13 @@ import Head from "next/head";
 import { Container } from "react-bootstrap";
 import EventList from "../components/events/EventList";
 import NewsLetterRegistration from "../components/input/NewsLetterRegistration";
-import { getFeaturedEvents } from "../utils/api-utils";
+import { getFeaturedEventsService } from "../utils/services/event.service";
+import { API_URL } from "../utils/constants";
 
 function HomePage(props) {
-  const { events } = props;
+  const {
+    eventsData: { events },
+  } = props;
   return (
     <>
       <Head>
@@ -25,10 +28,14 @@ function HomePage(props) {
 }
 
 export async function getStaticProps() {
-  const featuredEvents = await getFeaturedEvents();
+  const featuredEventsData = await getFeaturedEventsService(API_URL, {
+    limit: 15,
+    type: "featured",
+  });
+
   return {
     props: {
-      events: featuredEvents,
+      eventsData: featuredEventsData,
     },
     revalidate: 50,
   };

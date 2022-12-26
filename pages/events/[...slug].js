@@ -13,8 +13,20 @@ function FilteredEventsPage() {
   const router = useRouter();
 
   const filterData = router.query.slug;
+  const filteredYear = filterData?.[0];
+  const filteredMonth = filterData?.[1];
 
-  const { data: events, error, isLoading } = useGetEvents();
+  const numYear = +filteredYear;
+  const numMonth = +filteredMonth;
+
+  const monthSort = getMonthByIndex(numMonth - 1, "shortened")?.[0];
+  const month = getMonthByIndex(numMonth - 1, "long")?.[0];
+
+  const { data, error, isLoading } = useGetEvents({
+    limit: 10,
+    year: numYear,
+    month: monthSort,
+  });
 
   let pageHeadData = (
     <Head>
@@ -36,14 +48,6 @@ function FilteredEventsPage() {
     );
   }
 
-  const filteredYear = filterData?.[0];
-  const filteredMonth = filterData?.[1];
-
-  const numYear = +filteredYear;
-  const numMonth = +filteredMonth;
-
-  const month = getMonthByIndex(numMonth - 1)?.[0];
-
   pageHeadData = (
     <Head>
       <title>
@@ -59,8 +63,7 @@ function FilteredEventsPage() {
     numYear > 2030 ||
     numYear < 2020 ||
     numMonth < 1 ||
-    numMonth > 12 ||
-    error
+    numMonth > 12
   ) {
     // invalidFiltered = true;
     return (
@@ -90,15 +93,9 @@ function FilteredEventsPage() {
     );
   }
 
-  const filteredEvents = events.filter(event => {
-    const eventDate = new Date(event.date);
-    return (
-      eventDate.getFullYear() === numYear &&
-      eventDate.getMonth() === numMonth - 1
-    );
-  });
+  const events = data.events;
 
-  if (!filteredEvents || filteredEvents.length === 0) {
+  if (!events || events.length === 0) {
     return (
       <>
         <Head>
@@ -136,9 +133,9 @@ function FilteredEventsPage() {
           Events in {month} {numYear}
         </h4>
         <h6 className="text-dark text-opacity-75 text-end">
-          {filteredEvents.length} Events Found
+          {events?.length} Events Found
         </h6>
-        <EventList items={filteredEvents} />
+        <EventList items={events} />
       </Container>
     </>
   );
