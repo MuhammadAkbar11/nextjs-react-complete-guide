@@ -3,13 +3,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Head from "next/head";
 import { Container, Button } from "react-bootstrap";
-import EventList from "../../components/events/EventList";
-import { EmojiSadIcon, ExclamationCircleIcon } from "../../components/icons";
-import Loader from "../../components/ui/Loader";
+import { EmojiSadIcon } from "../../components/icons";
 import { getMonthByIndex } from "../../data/months-data";
-import useGetEvents from "../../utils/hooks/useGetEvents";
-import { useQuery } from "react-query";
-import { getAllEventsService } from "../../utils/services/event.service";
 import EventFilterList from "../../components/events/EventFilterList";
 
 function FilteredEventsPage() {
