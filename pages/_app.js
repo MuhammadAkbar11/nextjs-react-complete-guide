@@ -1,19 +1,23 @@
 import "../styles/global.scss";
 import Head from "next/head";
 import { SSRProvider } from "react-bootstrap";
+import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import Layout from "../components/layout/Layout";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 5 * 1000,
-    },
-  },
-});
-
 function MyApp({ Component, pageProps }) {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 5 * 1000,
+          },
+        },
+      })
+  );
+
   return (
     <QueryClientProvider client={queryClient}>
       <SSRProvider>
@@ -29,7 +33,7 @@ function MyApp({ Component, pageProps }) {
               content="initial-scale=1.0, width=device-width"
             />
           </Head>
-          <Component {...pageProps} />;
+          <Component {...pageProps} />
         </Layout>
       </SSRProvider>
       <ReactQueryDevtools />
