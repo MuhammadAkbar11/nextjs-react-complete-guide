@@ -19,7 +19,7 @@ function HomePage(props) {
         />
       </Head>
       <NewsLetterRegistration />
-      <Container className="event-container pt-3">
+      <Container className="event-container pt-3 pb-5">
         <h5>Featured Events</h5>
         <EventList items={events} />
       </Container>

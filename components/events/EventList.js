@@ -5,7 +5,7 @@ function EventList(props) {
   const { items } = props;
   return (
     <>
-      <Row className=" pt-2 pb-5 ">
+      <Row className=" pt-2">
         {items.map(event => {
           return (
             <Col sm={12} className="mb-4 mx-auto" key={event?._id}>

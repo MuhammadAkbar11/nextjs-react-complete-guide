@@ -7,25 +7,40 @@ import { Button, Container } from "react-bootstrap";
 import Loader from "../ui/Loader";
 import { ExclamationCircleIcon } from "../icons";
 import EventList from "./EventList";
+import Paginate from "../ui/Paginate";
 
 function EventFilterList(props) {
   const {
-    filterDate: { year, month, monthLong, monthShort },
+    filterDate: { year, month, monthLong },
   } = props;
 
+  const [currPage, setCurrPage] = React.useState(1);
+  const [totalPages, setTotalPages] = React.useState(0);
+
   const { data, isLoading, error } = useQuery(
-    ["filter-events", { year, monthLong }],
+    ["filter-events", { year, month, page: currPage }],
     {
       queryFn: () =>
         getAllEventsService("/api", {
+          page: currPage,
           limit: 10,
           year: year,
-          month: monthShort,
+          month: monthLong,
         }),
       retry: 2,
       staleTime: 15 * 1000,
     }
   );
+
+  React.useEffect(() => {
+    if (data) {
+      console.log(data);
+      const page = data?.currentPage;
+      const totalPages = data?.totalPages;
+      setCurrPage(page < 1 ? page + 1 : page);
+      setTotalPages(totalPages);
+    }
+  }, [data]);
 
   let pageHeadData = (
     <Head>
@@ -71,6 +86,10 @@ function EventFilterList(props) {
     );
   }
 
+  const onChangePageHandler = value => {
+    setCurrPage(value);
+  };
+
   return (
     <>
       <Head>
@@ -90,6 +109,11 @@ function EventFilterList(props) {
                 {data?.totalItems} Events Found
               </h6>
               <EventList items={data.events} />
+              <Paginate
+                page={currPage}
+                pages={totalPages}
+                onChangePage={onChangePageHandler}
+              />
             </>
           ) : (
             <div className="d-flex  w-100 justify-content-center align-items-center py-5 flex-column">

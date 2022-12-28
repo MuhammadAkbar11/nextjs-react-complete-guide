@@ -75,7 +75,7 @@ function FilteredEventsPage() {
     <>
       {filterDate ? (
         <>
-          <Container className="event-container mt-2">
+          <Container className="event-container mt-2 pb-5">
             <EventFilterList filterDate={filterDate} />
           </Container>
         </>
@@ -85,7 +85,7 @@ function FilteredEventsPage() {
             <title>BaeEvents - Loading...</title>
             <meta name="description" content={`A list of filtred events`} />
           </Head>
-          <Container className="event-container mt-2"></Container>
+          <Container className="event-container mt-2 "></Container>
         </>
       )}
     </>
