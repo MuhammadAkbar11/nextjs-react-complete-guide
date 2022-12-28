@@ -15,10 +15,11 @@ const eventSchema = new Schema({
     required: true,
   },
   dateStart: {
-    type: String,
+    type: Date,
+    required: true,
   },
   dateEnd: {
-    type: String,
+    type: Date,
   },
   image: {
     type: String,
