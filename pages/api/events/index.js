@@ -4,18 +4,24 @@ import { generateEvents } from "../../../utils/database/seed";
 import { ToBaseError, resAPIError } from "../../../utils/error";
 import Pagination from "../../../utils/pagination";
 import rgx from "../../../utils/rgx";
+import { getAllMonths } from "../../../data/months-data";
 
 async function postHandler(req, res) {
+  const postType = req.query?.type?.trim() || "default";
   try {
-    if (req.query.generate) {
-      const resultQueries = req.query.result || 10;
-      const eventsData = generateEvents(+resultQueries);
+    if (postType === "generate") {
+      const withPastDate = req.query.genDateType === "withpast";
+      const resultQueries = req.query.genResult || 10;
 
+      const eventsData = generateEvents(+resultQueries, withPastDate);
+      // const result = eventsData;
       const result = await EventModel.create(eventsData);
 
-      return res
-        .status(201)
-        .json({ message: "generate event successfully!", events: result });
+      return res.status(201).json({
+        message: "generate event successfully!",
+        totalGenerated: result.length,
+        events: result,
+      });
     }
 
     // req.body = await postNewsLetterSchema.validate(req.body, {
@@ -61,10 +67,16 @@ async function getHandler(req, res) {
   }
 
   if (_year || _month) {
+    const months = getAllMonths();
+    const monthIndex = months.indexOf(_month);
+    const startDate = new Date(_year, monthIndex, 1);
+    const endDate = new Date(_year, monthIndex + 1, 1);
+    // console.log(startDate);
     query = {
       ...query,
       dateStart: {
-        $regex: searchRgxByDate,
+        $gte: new Date(startDate.toUTCString()),
+        $lt: new Date(endDate.toUTCString()),
       },
     };
   }
@@ -75,13 +87,15 @@ async function getHandler(req, res) {
   });
 
   const { limit, skip } = paginated.getPagination();
-  let qrOptions = { skip: skip, limit: limit, sort: _sortBy };
+  let qrOptions = { skip: skip, limit: limit };
 
   try {
     const countDocs = await EventModel.countDocuments({ ...query });
     const events = await EventModel.find({ ...query }, undefined, {
       ...qrOptions,
-    }).select("-__v");
+    })
+      .sort({ dateStart: 1 })
+      .select("-__v");
 
     const data = paginated.getPagingData(countDocs, events);
 
