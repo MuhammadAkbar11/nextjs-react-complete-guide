@@ -11,7 +11,15 @@
       color: lighten($dark, $amount: 50);
       // text-decoration: underline;
       &:hover {
-        color: $primary;
+        color: rgba($primary, 1) !important;
+      }
+
+      &.active {
+        color: lighten($primary, 10) !important;
+
+        &:hover {
+          color: rgba($primary, 1) !important;
+        }
       }
     }
   }
