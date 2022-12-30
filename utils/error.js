@@ -1,3 +1,5 @@
+import { MODE } from "./constants";
+
 export function yupError(error) {
   return error.inner.reduce((acc, err) => {
     acc[err.path] = err.message;
@@ -5,17 +7,17 @@ export function yupError(error) {
   }, {});
 }
 
-function BaseError(
+export function BaseError(
   message = "Something Went Wrong",
   statusCode = 500,
   name = "BASE_ERROR",
   errors = {}
 ) {
-  this.name = name;
-  this.message = message;
+  this.name = name || "BASE_ERROR";
+  this.message = message || "Something Went Wrong";
   this.statusCode = statusCode;
   this.errors = errors;
-  this.stack = new Error().stack;
+  if (MODE === "development") this.stack = new Error().stack;
 }
 
 BaseError.prototype = Object.create(Error.prototype);
