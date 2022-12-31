@@ -9,6 +9,7 @@ import { API_URL } from "../../utils/constants";
 import { humanReadableDate } from "../../utils/date";
 import { useRouter } from "next/router";
 import Loader from "../../components/ui/Loader";
+import EventAuthor from "../../components/eventDetail/EventAuthor";
 
 function EventDetailPage(props) {
   const { isFallback } = useRouter();
@@ -32,7 +33,7 @@ function EventDetailPage(props) {
   const date = `${dateStartFormat} - ${dateEndFormat}`;
 
   return (
-    <Container className="event-container pt-3">
+    <Container className="event-container pt-3 pb-5">
       {!event ? (
         <>
           <Head>
@@ -55,7 +56,12 @@ function EventDetailPage(props) {
           />
           <EventContent>
             <p>{event?.description}</p>
+            <EventAuthor
+              author={event?.user}
+              date={humanReadableDate(event?.createdAt)}
+            />
           </EventContent>
+          <hr />
           <EventComments eventId={eventId} />
         </>
       )}

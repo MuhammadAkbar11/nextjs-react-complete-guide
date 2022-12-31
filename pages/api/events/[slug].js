@@ -14,7 +14,9 @@ async function postHandler(req, res) {
 async function getHandler(req, res) {
   const _slug = req.query.slug;
   try {
-    const event = await EventModel.findOne({ slug: _slug }).select("-__v");
+    const event = await EventModel.findOne({ slug: _slug })
+      .populate("user", "name username avatar email _id")
+      .select("-__v");
 
     res.status(200).json({ event });
   } catch (error) {

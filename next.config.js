@@ -4,7 +4,7 @@ module.exports = {
   reactStrictMode: true,
 
   images: {
-    domains: ["loremflickr.com"],
+    domains: ["loremflickr.com", "cloudflare-ipfs.com"],
   },
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],

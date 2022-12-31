@@ -94,6 +94,7 @@ async function getHandler(req, res) {
     const events = await EventModel.find({ ...query }, undefined, {
       ...qrOptions,
     })
+      .populate("user", "name username avatar email _id")
       .sort({ dateStart: 1 })
       .select("-__v");
 
