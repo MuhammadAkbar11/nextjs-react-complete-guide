@@ -11,11 +11,11 @@ import ListComment from "../comments/ListComment";
 
 function EventComments(props) {
   const [filter, setFilter] = React.useState({ limit: 8 });
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   return (
     <section>
-      <div className="pb-4 d-flex justify-content-center ">
+      <div className="py-4 d-flex justify-content-center ">
         <Button variant="outline-primary" onClick={() => setOpen(!open)}>
           {open ? "Hide Comments" : "Open Comments"}
         </Button>
